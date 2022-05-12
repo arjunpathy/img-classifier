@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="./script.js"></script>
+</script>
+</head>
+<body>
+    
+<div ng-app="myApp">
+    <div ng-controller="MainController">
+        <form action>
+            <div class="cards dropzone" file-dropzone="[image/png, image/jpeg, image/gif]"
+            file="image" file-name="imageFileName" data-max-file-size="3">
+            <span>Drop Image Here</span>
+        </div>
+      <div class="cards image-container">
+        <span><b>Preview :</b>
+            <span class="file-name" ng-show="image != null"> {{imageFileName}}</span>
+        </span>
+        <img ng-src="{{ image }}" ng-show="image != null" class="img-preview"/>
+        <img ng-src="{{ uploadme.src }}" ng-show="uploadme.src != null" class="img-preview"/>
+      </div>
+      <div class="cards">
+        <span><b>Category : {{showPrediction}}</b></span><br>
+        <div ng-show="showPrediction" >
+            <ul>  
+                <li><i>Category 1 </i>: 80%</li><br>
+                <li><i>Category 2 </i>: 13%</li><br>
+                <li><i>Category 3 </i>: 7%</li>
+            </ul>
+        </div>
+      </div>
+    </div>
+    </form>
+    <button ng-click="clickfn()" ng-controller="MainController">Process</button>
+</div>
+
+</body>
+
+  </html>

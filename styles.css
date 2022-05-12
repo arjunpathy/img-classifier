@@ -1,0 +1,44 @@
+body {
+    color: white;
+    background: rgb(29, 31, 39);
+  }
+  
+  button {
+    cursor: pointer;
+  }
+/*   
+  input[type=file] {
+    
+  } */
+  .image-container{
+        height: 300px;
+        width: 300px;
+        overflow: hidden;
+  }
+  .img-preview{
+    height: 100%; width: 100%; object-fit: contain;
+  }
+  .form-container{
+    overflow: hidden;
+
+  }
+  ul{
+    list-style-type: none; 
+  }
+
+  .cards {
+    height: 300px;
+    width: 33%;
+    border: 2px solid red;
+    border-radius: 10px;
+    text-align: center;
+    float:left; 
+  }
+  /* .dropzone{
+    height: 300px;
+    width: 300px;
+    border: 2px solid red;
+    border-radius: 10px;
+    text-align: center;
+    float:left;
+  } */
