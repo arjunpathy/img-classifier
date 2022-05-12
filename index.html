@@ -16,6 +16,8 @@
       <div class="cards dropzone" file-dropzone="[image/png, image/jpeg, image/gif]" file="image"
         file-name="imageFileName" data-max-file-size="3">
         <span>Drop Image Here</span>
+        <div><img  class="danddimg" src = "./assets/images/DandDimg.png"></div>
+
          </div>
       <div class="cards image-container">
         <span><b>Preview :</b>
@@ -23,20 +25,20 @@
 
         </span>
         <img ng-src="{{ image }}" ng-show="image != null" class="img-preview" />
-        <img ng-src="{{ uploadme.src }}" ng-show="uploadme.src != null" class="img-preview" />
+        <!-- <img ng-src="{{ uploadme.src }}" ng-show="uploadme.src != null" class="img-preview" /> -->
       </div>
       <div class="cards">
-        <span><b>Category : {{showPrediction}}</b></span><br>
+        <span><b>Category : </b></span><br>
         <div ng-show="showPrediction">
           <ul>
-            <li><i>Category 1 </i>: 80%</li><br>
-            <li><i>Category 2 </i>: 13%</li><br>
-            <li><i>Category 3 </i>: 7%</li>
+            <li><i>Spiderman </i>: 80%</li><br>
+            <li><i>Superhero </i>: 13%</li><br>
+            <li><i>Man </i>: 7%</li>
              </ul>
         </div>
          </div>
     </form>
-    <button ng-click="clickfn()">Process</button>
+    <button ng-click="clickfn()" class="processButton">Process</button>
      </div>
 </div>
  
