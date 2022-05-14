@@ -2,17 +2,62 @@ var app = angular.module('myApp',[]);
 
 app.run([function () { }]);
 
-app.controller('MainController', ['$scope', function ($scope){
+app.controller('MainController', ['$scope','$http', function ($scope,$http){
   $scope.image = null;
   $scope.imageFileName = '';
+  $scope.uploadedFile = null;
   
   $scope.uploadme = {};
   $scope.uploadme.src = '';
   $scope.showPrediction = false;
+  $scope.predictionResult = [];
 
-  $scope.clickfn = function() {
-      $scope.showPrediction = !$scope.showPrediction;
-      console.log( $scope.showPrediction);
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function (e) {
+            $('#blah').attr('src', e.target.result);
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#file").change(function(){
+    readURL(this);
+});
+  $scope.processImage = () =>{
+    var f = document.getElementById('file').files[0];
+
+      var form = new FormData();
+      form.append("username", "acc_37279cae5fc01f1");
+      form.append("password", "d6b44dbebb7a0e63b162e421d2954fd8");
+      form.append("image", f, "");
+      
+      var settings = {
+        "url": "https://api.imagga.com/v2/tags",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+          "Authorization": "Basic YWNjXzM3Mjc5Y2FlNWZjMDFmMTpkNmI0NGRiZWJiN2EwZTYzYjE2MmU0MjFkMjk1NGZkOA=="
+        },
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+      };
+      
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        response = JSON.parse(response);
+        $scope.predictionResult =[response.result.tags[0],response.result.tags[1],response.result.tags[2],response.result.tags[3],response.result.tags[4]];
+        $scope.$apply(function(){
+          $scope.showPrediction = true;
+        });
+        console.log($scope.showPrediction,$scope.predictionResult)
+      });
+  
   }
 }]);
 
@@ -67,16 +112,6 @@ app.directive('fileDropzone', function() {
           event.preventDefault();
         }
         reader = new FileReader();
-        reader.onload = function(evt) {
-          if (checkSize(size) && isTypeValid(type)) {
-            return scope.$apply(function() {
-              scope.file = evt.target.result;
-              if (angular.isString(scope.fileName)) {
-                return scope.fileName = name;
-              }
-            });
-          }
-        };
         file = event.dataTransfer.files[0];
         name = file.name;
         type = file.type;
@@ -87,20 +122,6 @@ app.directive('fileDropzone', function() {
     }
   };
 })
-
-// $scope.setFile = function(element) {
-//     $scope.currentFile = element.files[0];
-//      var reader = new FileReader();
-  
-//     reader.onload = function(event) {
-//       $scope.image_source = event.target.result
-//       $scope.$apply()
-  
-//     }
-//     // when the file is read it triggers the onload event above.
-//     reader.readAsDataURL(element.files[0]);
-//   }
-
 .directive("fileread", [function () {
     return {
         scope: {
